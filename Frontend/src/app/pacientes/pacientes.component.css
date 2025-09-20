@@ -1,0 +1,19 @@
+/* Pacientes component custom styles */
+.table-fixed {
+  table-layout: fixed;
+}
+/* Improve modal backdrop */
+.modal-backdrop {
+  z-index: 50;
+}
+/* Modal container styling */
+.modal-container {
+  z-index: 60;
+}
+/* Button hover transitions */
+.btn-transition {
+  transition: background-color 0.2s ease;
+}
+.btn-transition:hover {
+  opacity: 0.9;
+}

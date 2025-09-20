@@ -1,0 +1,33 @@
+/* Sidebar component styles */
+.sidebar-transition {
+  transition: transform 0.3s ease-in-out;
+}
+
+.menu-item-active {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+  border-right: 2px solid #3b82f6;
+}
+
+.menu-item-hover {
+  transition: all 0.2s ease;
+}
+
+.menu-item-hover:hover {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+.sidebar-shadow {
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-section {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+@media (max-width: 1024px) {
+  .sidebar-overlay {
+    backdrop-filter: blur(4px);
+  }
+}

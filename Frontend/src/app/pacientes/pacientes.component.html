@@ -1,0 +1,80 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="bg-white shadow rounded-lg p-6">
+    <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold">Pacientes</h2>
+    <button (click)="openNew()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+      Nuevo Paciente
+    </button>
+  </div>
+
+  <div *ngIf="error" class="text-red-500 mb-4">{{ error }}</div>
+
+  <!-- Tabla -->
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Apellido</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha Nac.</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Teléfono</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr *ngFor="let p of pacientes" class="hover:bg-gray-50">
+            <td class="px-6 py-4 whitespace-nowrap">{{ p.paciente_id }}</td>
+            <td class="px-6 py-4 whitespace-nowrap">{{ p.nombre }}</td>
+            <td class="px-6 py-4 whitespace-nowrap">{{ p.apellido }}</td>
+            <td class="px-6 py-4 whitespace-nowrap">{{ p.fecha_nacimiento | date:'yyyy-MM-dd' }}</td>
+            <td class="px-6 py-4 whitespace-nowrap">{{ p.telefono }}</td>
+            <td class="px-6 py-4 whitespace-nowrap space-x-2">
+            <button (click)="openEdit(p)" class="bg-yellow-500 text-white px-2 py-1 rounded">Editar</button>
+            <button (click)="confirmDelete(p)" class="bg-red-500 text-white px-2 py-1 rounded">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal Form -->
+  <div *ngIf="showFormModal" class="fixed inset-0 modal-backdrop bg-gray-600 bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white rounded-lg w-96 p-6 modal-container">
+      <h3 class="text-xl font-bold mb-4">{{ editingPaciente ? 'Editar Paciente' : 'Nuevo Paciente' }}</h3>
+      <form [formGroup]="form" (ngSubmit)="save()">
+        <div class="mb-4">
+          <label for="nombre" class="block mb-1">Nombre</label>
+          <input id="nombre" formControlName="nombre" placeholder="Nombre" title="Nombre" class="w-full border px-3 py-2 rounded" />
+        </div>
+        <div class="mb-4">
+          <label for="apellido" class="block mb-1">Apellido</label>
+          <input id="apellido" formControlName="apellido" placeholder="Apellido" title="Apellido" class="w-full border px-3 py-2 rounded" />
+        </div>
+        <div class="mb-4">
+          <label for="fecha_nacimiento" class="block mb-1">Fecha Nac.</label>
+          <input id="fecha_nacimiento" type="date" formControlName="fecha_nacimiento" title="Fecha de nacimiento" class="w-full border px-3 py-2 rounded" />
+        </div>
+        <div class="mb-4">
+          <label for="telefono" class="block mb-1">Teléfono</label>
+          <input id="telefono" formControlName="telefono" placeholder="Teléfono" title="Teléfono" class="w-full border px-3 py-2 rounded" />
+        </div>
+        <div class="flex justify-end space-x-2">
+            <button type="button" (click)="cancel()" class="px-4 py-2 bg-gray-300 rounded btn-transition">Cancelar</button>
+            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded btn-transition">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Delete -->
+  <div *ngIf="showDeleteModal" class="fixed inset-0 modal-backdrop bg-gray-600 bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white rounded-lg w-80 p-6 modal-container">
+      <h3 class="text-lg font-bold mb-4">Confirmar Eliminación</h3>
+      <p class="mb-4">¿Estás seguro de eliminar a {{ deletingPaciente?.nombre }} {{ deletingPaciente?.apellido }}?</p>
+      <div class="flex justify-end space-x-2">
+        <button (click)="cancel()" class="px-4 py-2 bg-gray-300 rounded btn-transition">Cancelar</button>
+        <button (click)="delete()" class="px-4 py-2 bg-red-600 text-white rounded btn-transition">Eliminar</button>
+    </div>
+  </div> <!-- close card -->
+</div> <!-- close container -->

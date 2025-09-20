@@ -1,0 +1,21 @@
+<div class="min-h-screen bg-gray-100">
+  <!-- Header -->
+  <app-header 
+    [currentUser]="currentUser" 
+    (sidebarToggle)="toggleSidebar()" 
+    (logout)="onLogout()">
+  </app-header>
+
+  <div class="flex">
+    <!-- Sidebar -->
+    <app-sidebar 
+      [isOpen]="sidebarOpen" 
+      [currentUser]="currentUser">
+    </app-sidebar>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6" [class.ml-64]="sidebarOpen" [class.ml-0]="!sidebarOpen">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
